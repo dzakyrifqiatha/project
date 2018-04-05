@@ -1,0 +1,54 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddBukuReq{
+    string KodeBuku=1;
+    string NamaBuku=2;
+    int32 Status=3;
+    string Keterangan=4;
+    string CreateBy=5;
+    string CretateOn=6;
+}
+
+message ReadBukuByKodeReq{
+    string KodeBuku=1;
+}
+
+message ReadBukuByKodeResp{
+    string KodeBuku=1;
+    string NamaBuku=2;
+    int32 Status=3;
+    string Keterangan=4;
+}
+
+
+message ReadBukuResp{
+    repeated ReadBukuByKodeResp AllBuku=1;
+}
+
+message UpdateBukuReq{
+    string KodeBuku=1;
+    string NamaBuku=2;
+    int32 Status=3;
+    string Keterangan=4;
+    string UpdateBy=5;
+}
+
+message ReadBukuByKeteranganReq{
+    string Keterangan=1;
+}
+
+message ReadBukuByKeteranganResp{
+    repeated ReadBukuByKodeResp AllBukuKet=1;
+}
+
+service BukuService{
+    rpc AddBuku(AddBukuReq) returns (google.protobuf.Empty) {};
+    rpc ReadBukuByKode(ReadBukuByKodeReq) returns (ReadBukuByKodeResp) {};
+    rpc ReadBuku(google.protobuf.Empty) returns (ReadBukuResp){};
+    rpc UpdateBuku(UpdateBukuReq) returns (google.protobuf.Empty){};
+    rpc ReadBukuByKeterangan(ReadBukuByKeteranganReq) returns (ReadBukuByKeteranganResp){};
+}
